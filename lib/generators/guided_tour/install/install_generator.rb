@@ -22,10 +22,10 @@ module GuidedTour
         inject_into_file "app/javascript/controllers/index.js", after: "import { application } from \"./application\"" do
           <<-JS
 
+
 // GuidedTour
 import { GuidedTourController } from "guided_tour/tour_controller"
 application.register('guided-tour--tour', GuidedTourController)
-
           JS
         end
       end
