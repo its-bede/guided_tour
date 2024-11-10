@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# lib/generators/guided_tour/install/install_generator.rb
+require File.expand_path('../../../guided_tour/version', __dir__)
+
 module GuidedTour
   module Generators
     class InstallGenerator < Rails::Generators::Base
