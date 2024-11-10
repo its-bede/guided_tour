@@ -4,6 +4,11 @@ module GuidedTour
   class Engine < ::Rails::Engine
     isolate_namespace GuidedTour
 
+    # Add a class method to easily get the JavaScript path
+    def self.javascript_path
+      root.join("app/javascript").to_s
+    end
+
     # Verify dependencies are installed
     config.after_initialize do |app|
       begin
@@ -37,14 +42,14 @@ module GuidedTour
     # Make stimulus controllers available to app
     initializer "guided_tour.assets" do |app|
       if app.config.respond_to?(:assets)
-        # Add your JavaScript path to assets
-        app.config.assets.paths << root.join("app/javascript").to_s
-        app.config.assets.precompile += %w[guided_tour/application.js]
+        app.config.assets.paths << javascript_path
       end
 
-      # Add the controllers path to esbuild/webpack paths
-      if app.config.respond_to?(:javascript_path)
-        app.config.javascript_path << root.join("app/javascript").to_s
+      # Add to esbuild paths if available
+      if defined?(Esbuild)
+        Esbuild.configure do |config|
+          config.include_paths << javascript_path
+        end
       end
     end
 
