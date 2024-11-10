@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Rails >= 7.0
+- Rails >= 7.1
 - stimulus-rails
 - jsbundling-rails with esbuild
 - Node.js & Yarn
@@ -11,7 +11,7 @@
 
 1. Add to your Gemfile:
 ```ruby
-gem 'your_gem_name'
+gem 'guided-tour'
 ```
 
 ## Development
