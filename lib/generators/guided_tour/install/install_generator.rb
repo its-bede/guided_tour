@@ -19,8 +19,9 @@ module GuidedTour
       end
 
       def update_javascript_entry
-        inject_into_file "app/javascript/controllers/index.js", after: "import { application }" do
+        inject_into_file "app/javascript/controllers/index.js", after: "import { application } from \"./application\"" do
           <<-JS
+
 // GuidedTour
 import { GuidedTourController } from "guided_tour/tour_controller"
 application.register('guided-tour--tour', GuidedTourController)
