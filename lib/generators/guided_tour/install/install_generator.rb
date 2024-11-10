@@ -1,8 +1,4 @@
-# frozen_string_literal: true
-
 # lib/generators/guided_tour/install/install_generator.rb
-require File.expand_path('../../../guided_tour/version', __dir__)
-
 module GuidedTour
   module Generators
     class InstallGenerator < Rails::Generators::Base
@@ -20,9 +16,23 @@ module GuidedTour
         end
       end
 
-      def add_npm_package
-        in_root do
-          run "yarn add @guided_tour/controllers@#{GuidedTour::VERSION}"
+      def copy_javascript_files
+        say "Copying Stimulus controllers...", :green
+        directory "javascript/controllers", "app/javascript/controllers/guided_tour"
+      end
+
+      def update_javascript_entry
+        inject_into_file "app/javascript/application.js", after: "import \"@hotwired/turbo-rails\"\n" do
+          <<-JS
+import { Application } from "@hotwired/stimulus"
+import GuidedTourController from "./controllers/guided_tour/tour_controller"
+
+// Stimulus setup
+window.Stimulus = Application.start()
+
+// Register GuidedTour controller
+window.Stimulus.register("guided-tour", GuidedTourController)
+          JS
         end
       end
 
@@ -34,28 +44,12 @@ module GuidedTour
         end
       end
 
-      def update_javascript_entry
-        inject_into_file "app/javascript/application.js", after: "import \"@hotwired/turbo-rails\"\n" do
-          <<-JS
-  import { Application } from "@hotwired/stimulus"
-  import { controllers } from "@guided_tour/controllers"
-  
-  // Stimulus setup
-  window.Stimulus = Application.start()
-  
-  // Register GuidedTour controllers
-  controllers.forEach(({ name, controller }) => {
-    window.Stimulus.register(`guided-tour--${name}`, controller)
-  })
-          JS
-        end
-      end
-
       private
 
       def append_build_config
+        # Update this to match your actual JavaScript file paths
         inject_into_file "build.js", after: "entryPoints: [" do
-          "\n    './node_modules/@guided_tour/controllers/**/*.js',"
+          "\n    './app/javascript/controllers/guided_tour/**/*.js',"
         end
       end
     end
