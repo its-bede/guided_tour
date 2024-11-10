@@ -118,7 +118,7 @@ PLATFORMS
 DEPENDENCIES
   guided-tour!
   jsbundling-rails
-  minitest (~> 5.16)
+  minitest (~> 5.0)
   rake (~> 13.0)
   sqlite3
 
