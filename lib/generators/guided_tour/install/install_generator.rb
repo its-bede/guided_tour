@@ -22,28 +22,10 @@ module GuidedTour
         inject_into_file "app/javascript/controllers/index.js", before: "application.register" do
           <<-JS
 // GuidedTour
-import { controllers } from "guided_tour"
-controllers.forEach(({ name, controller }) => {
-  application.register(name, controller)
-})
+import { GuidedTourController } from "guided_tour/tour_controller"
+application.register('guided-tour--tour', GuidedTourController)
 
           JS
-        end
-      end
-
-      def update_build_js
-        if File.exist?("build.js")
-          append_build_config
-        else
-          template "build.js.tt", "build.js"
-        end
-      end
-
-      private
-
-      def append_build_config
-        inject_into_file "build.js", after: "entryPoints: [" do
-          "\n    './app/javascript/controllers/**/*.js',"
         end
       end
     end
