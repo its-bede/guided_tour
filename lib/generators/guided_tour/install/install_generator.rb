@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require 'guided_tour'
+
 # lib/generators/guided_tour/install/install_generator.rb
-require File.expand_path('../../../guided_tour/version', __dir__)
+# require File.expand_path('../../../guided_tour/version', __dir__)
+
 
 module GuidedTour
   module Generators
