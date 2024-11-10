@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 # lib/generators/guided_tour/install/install_generator.rb
+require File.expand_path('../../../guided_tour/version', __dir__)
+
 module GuidedTour
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      source_root File.expand_path("../templates", __FILE__)
+      source_root File.expand_path("../../templates", __dir__)  # Note the path change here
 
       def check_dependencies
         unless File.exist?("package.json")
@@ -47,7 +51,6 @@ window.Stimulus.register("guided-tour", GuidedTourController)
       private
 
       def append_build_config
-        # Update this to match your actual JavaScript file paths
         inject_into_file "build.js", after: "entryPoints: [" do
           "\n    './app/javascript/controllers/guided_tour/**/*.js',"
         end
