@@ -6,36 +6,24 @@ require File.expand_path('../../../guided_tour/version', __dir__)
 module GuidedTour
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      source_root File.expand_path("../../templates", __dir__)  # Note the path change here
+      source_root File.expand_path("../templates", __FILE__)
 
       def check_dependencies
-        unless File.exist?("package.json")
-          say "Installing jsbundling-rails...", :green
-          run "rails javascript:install:esbuild"
-        end
-
         unless File.exist?("app/javascript/controllers/index.js")
           say "Installing stimulus-rails...", :green
           run "rails stimulus:install"
         end
       end
 
-      def copy_javascript_files
-        say "Copying Stimulus controllers...", :green
-        directory "javascript/controllers", "app/javascript/controllers/guided_tour"
-      end
-
       def update_javascript_entry
-        inject_into_file "app/javascript/application.js", after: "import \"@hotwired/turbo-rails\"\n" do
+        inject_into_file "app/javascript/controllers/index.js", before: "application.register" do
           <<-JS
-import { Application } from "@hotwired/stimulus"
-import GuidedTourController from "./controllers/guided_tour/tour_controller"
+// GuidedTour
+import { controllers } from "guided_tour"
+controllers.forEach(({ name, controller }) => {
+  application.register(name, controller)
+})
 
-// Stimulus setup
-window.Stimulus = Application.start()
-
-// Register GuidedTour controller
-window.Stimulus.register("guided-tour", GuidedTourController)
           JS
         end
       end
@@ -52,7 +40,7 @@ window.Stimulus.register("guided-tour", GuidedTourController)
 
       def append_build_config
         inject_into_file "build.js", after: "entryPoints: [" do
-          "\n    './app/javascript/controllers/guided_tour/**/*.js',"
+          "\n    './app/javascript/controllers/**/*.js',"
         end
       end
     end

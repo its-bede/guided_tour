@@ -37,12 +37,18 @@ module GuidedTour
     # Make stimulus controllers available to app
     initializer "guided_tour.assets" do |app|
       if app.config.respond_to?(:assets)
-        app.config.assets.paths << root.join("app", "javascript").to_s
+        # Add your JavaScript path to assets
+        app.config.assets.paths << root.join("app/javascript").to_s
         app.config.assets.precompile += %w[guided_tour/application.js]
+      end
+
+      # Add the controllers path to esbuild/webpack paths
+      if app.config.respond_to?(:javascript_path)
+        app.config.javascript_path << root.join("app/javascript").to_s
       end
     end
 
-    # Optional: Add importmap paths if using importmaps
+    # Hook into importmap if it's being used
     initializer "guided_tour.importmap", before: "importmap" do |app|
       if defined?(ImportMap)
         app.config.importmap.paths << root.join("config/importmap.rb")
