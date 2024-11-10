@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+const esbuild = require('esbuild')
+const path = require('path')
+
+async function build() {
+  const context = await esbuild.context({
+    entryPoints: [
+      'app/javascript/application.js',
+      './node_modules/@your_gem_name/controllers/**/*.js'
+    ],
+    bundle: true,
+    sourcemap: true,
+    outdir: path.join(process.cwd(), 'app/assets/builds'),
+    absWorkingDir: path.join(process.cwd()),
+    publicPath: '/assets',
+    format: 'esm',
+    plugins: [],
+    loader: {
+      '.js': 'jsx',
+      '.jsx': 'jsx',
+    }
+  })
+
+  if (process.argv.includes('--watch')) {
+    await context.watch()
+  } else {
+    await context.rebuild()
+    context.dispose()
+  }
+}
+
+build().catch(e => {
+  console.error(e)
+  process.exit(1)
+})
