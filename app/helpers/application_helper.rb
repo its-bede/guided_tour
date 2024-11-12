@@ -33,4 +33,11 @@ module ApplicationHelper
                 ])
     end.html_safe
   end
+
+  def guided_tour_javascript_include_tag
+    # This assumes your JS is in app/javascript/controllers/guided_tour/tour_controller.js
+    javascript_include_tag 'controllers/guided_tour/tour_controller',
+                           skip_pipeline: true,
+                           type: "module"
+  end
 end

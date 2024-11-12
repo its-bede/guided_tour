@@ -10,7 +10,7 @@ module GuidedTour
     end
 
     # Verify dependencies are installed
-    config.after_initialize do |app|
+    config.after_initialize do |_app|
       begin
         require "stimulus-rails"
       rescue LoadError
@@ -39,26 +39,26 @@ module GuidedTour
       end
     end
 
-    # Make stimulus controllers available to app
-    initializer "guided_tour.assets" do |app|
-      if app.config.respond_to?(:assets)
-        app.config.assets.paths << javascript_path
+    def add_javascript_configuration
+      application_js_path = "app/javascript/application.js"
+
+      append_to_file application_js_path do
+        "\nimport \"controllers/your_gem/your_controller\"\n"
       end
 
-      # Add to esbuild paths if available
-      if defined?(Esbuild)
-        Esbuild.configure do |config|
-          config.include_paths << javascript_path
-        end
+      # Optionally, modify esbuild configuration if needed
+      inject_into_file "package.json", after: "\"scripts\": {" do
+        <<-JSON
+        "build:gem": "esbuild app/javascript/*.* #{gem_javascript_paths} --bundle --sourcemap --outdir=app/assets/builds",
+        JSON
       end
     end
 
-    # Hook into importmap if it's being used
-    initializer "guided_tour.importmap", before: "importmap" do |app|
-      if defined?(ImportMap)
-        app.config.importmap.paths << root.join("config/importmap.rb")
-        app.config.importmap.cache_sweepers << root.join("app/javascript")
-      end
+    private
+
+    def gem_javascript_paths
+      spec = Gem::Specification.find_by_name("your_gem")
+      "#{spec.gem_dir}/app/javascript/**/*.*"
     end
   end
 end
