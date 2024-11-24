@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.email       = [ "ben@bdeutscher.org" ]
   spec.summary = "Gem to guide users through the UI and explain things."
   spec.description = "When building UIs for 'non tech people' things tend to get difficult to explain since some people do not know terms like button, select, etc. guided-tour helps with that."
-  spec.homepage = "ttps://github.com/its-bede/guided-tour"
+  spec.homepage = "https://github.com/its-bede/guided-tour"
   spec.license = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
