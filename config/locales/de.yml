@@ -1,0 +1,7 @@
+---
+de:
+  guided-tour:
+    next-btn-text: "Weiter"
+    prev-btn-text: "Zurück"
+    done-btn-text: "Fertig"
+    step-line: "Erklärung {{current}} von {{total}}"
