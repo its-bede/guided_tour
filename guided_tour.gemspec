@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "railties", ">= 7.1"                 # Core Rails functionality
   spec.add_dependency "actionview", ">= 7.1", "< 8.0"      # For view helpers
-  spec.add_dependency "activesupport", ">= 7.1", "< 8.0"   # For general Rails utilities
+  spec.add_dependency "activesupport", ">= 7.1", "< 9.0"   # For general Rails utilities
   spec.add_dependency "rails-i18n", ">= 7.0", "< 8.0"      # For Stimulus integration
   spec.add_dependency "stimulus-rails"
 
