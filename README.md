@@ -19,7 +19,7 @@ This gem comes with the npm package [@itsbede/guided-tour](https://www.npmjs.com
     ```
 2. Run installer
     ```bash
-      ./bin/rails guided_tour:install
+      ./bin/rails g guided_tour:install
     ```
    
 ## Usage
