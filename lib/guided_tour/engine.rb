@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../app/helpers/guided_tour/application_helper'
+
 # lib/guided_tour/engine.rb
 module GuidedTour
   class Engine < ::Rails::Engine
