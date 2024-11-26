@@ -4,7 +4,6 @@
 module GuidedTour
   module Generators
     class InstallGenerator < Rails::Generators::Base
-
       def check_dependencies
         unless File.exist?("app/javascript/controllers/index.js")
           say "Installing stimulus-rails...", :green

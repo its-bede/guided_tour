@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../app/helpers/guided_tour/application_helper'
+require_relative "../../app/helpers/guided_tour/application_helper"
 
 # lib/guided_tour/engine.rb
 module GuidedTour
@@ -30,7 +30,7 @@ module GuidedTour
       ]
     end
 
-    initializer 'guided_tour.action_controller' do
+    initializer "guided_tour.action_controller" do
       ActiveSupport.on_load :action_controller do
         helper GuidedTour::ApplicationHelper
       end

@@ -18,14 +18,13 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "railties", ">= 7.1"                 # Core Rails functionality
-  spec.add_dependency "actionview", ">= 7.1", "< 9.0"      # For view helpers
-  spec.add_dependency "activesupport", ">= 7.1", "< 8.0"   # For general Rails utilities
-  spec.add_dependency "rails-i18n", ">= 7.0", "< 9.0"      # For Stimulus integration
+  spec.add_dependency "rails", ">= 7.1", "< 9.0"
+  spec.add_dependency "rails-i18n", ">= 7.0", "< 9.0"
   spec.add_dependency "stimulus-rails"
 
   # Development dependencies for testing
-  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency "minitest"
+  spec.add_development_dependency "capybara"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "jsbundling-rails"
 end
