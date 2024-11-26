@@ -25,8 +25,6 @@ class ApplicationHelperTest < ActionView::TestCase
     wrapper = doc.at_css(".guided-tour--wrapper")
     assert wrapper
 
-    puts wrapper.inspect
-
     assert_equal "guided-tour--tour", wrapper["data-controller"]
     assert_equal t("guided-tour.next-btn-text"), wrapper["data-guided-tour--tour-next-btn-text-value"]
     assert_equal t("guided-tour.prev-btn-text"), wrapper["data-guided-tour--tour-prev-btn-text-value"]
