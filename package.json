@@ -1,0 +1,31 @@
+{
+  "name": "@itsbede/guided-tour",
+  "version": "1.0.2",
+  "description": "A simple Stimulus controller that enables you to show a guided tour overlay on your website.",
+  "main": "dist/guided_tour_controller.js",
+  "type": "module",
+  "module": "dist/guided_tour_controller.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "keywords": [
+    "stimulus",
+    "controller",
+    "hotwired"
+  ],
+  "author": "Benjamin Deutscher",
+  "license": "MIT",
+  "peerDependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "bootstrap": "^5.3.3"
+  },
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "bootstrap": "^5.3.3",
+    "rollup": "^4.27.4"
+  }
+}

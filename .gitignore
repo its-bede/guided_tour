@@ -8,3 +8,7 @@
 /test/dummy/log/*.log
 /test/dummy/storage/
 /test/dummy/tmp/
+
+# npm
+/node_modules/
+*.tgz
